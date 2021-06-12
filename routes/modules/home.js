@@ -41,6 +41,7 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const urlCode = req.params.id
+  if (urlCode === 'favicon.ico') return
   return URL.findOne({ urlCode })
     .lean()
     .then(url => res.redirect(url.originURL))
