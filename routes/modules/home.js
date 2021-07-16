@@ -39,7 +39,10 @@ router.get('/:id', (req, res) => {
   if (urlCode === 'favicon.ico') return
   return URL.findOne({ urlCode })
     .lean()
-    .then(url => res.redirect(url.originURL))
+    .then(url => {
+      if(!url) return res.redirect('/')
+      res.redirect(url.originURL)
+    })
     .catch(err => console.error(err))
 })
 
