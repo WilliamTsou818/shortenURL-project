@@ -1,6 +1,6 @@
 const copyButton = document.querySelector('#copy-button')
 
-function copyText() {
+function copyText () {
   const shortenURL = document.querySelector('#shortenURL')
   console.log(shortenURL)
   shortenURL.select()
