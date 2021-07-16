@@ -8,35 +8,30 @@ router.get('/', (req, res) => {
 })
 
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const inputURL = req.body.originURL.trim()
   const urlValidation = !urlInputValidation(inputURL)
   if(urlValidation) return res.render('index', { urlValidation, inputURL })
+  // check if input url is existed 
+  const url = await URL.findOne({ originURL: inputURL }).lean()
+  if(url) {
+    let shortenURL = url.shortenURL
+    return res.render('index', { shortenURL, inputURL })
+  }
+  // generate new url code
+  let urlCode = randomUrlCode()
+  const urlCodeArr = await URL.find().distinct('urlCode').lean()
+  while(urlCodeArr.includes(urlCode)) {
+    urlCode = randomUrlCode()
+  }
+  shortenURL = `${req.headers.host}/${urlCode}`
 
-  URL.find()
-    .lean()
-    .then(urlData => {
-      let shortenURL = urlData.find(url => url.originURL === inputURL)
-      if (shortenURL) {
-        shortenURL = shortenURL.shortenURL
-        return res.render('index', { shortenURL, inputURL })
-      } else {
-        let newCode = randomUrlCode()
-        while (urlData.some(url => url.urlCode === newCode)) {
-          newCode = randomUrlCode()
-        }
-        shortenURL = `http://localhost:3000/${newCode}`
-        
-        return URL.create({
-          originURL: inputURL,
-          shortenURL: shortenURL,
-          urlCode: newCode
-        })
-          .then(() => res.render('index', { shortenURL, inputURL }))
-
-      }
-      
-    })
+  return URL.create({
+    originURL: inputURL,
+    shortenURL,
+    urlCode
+  })
+    .then(() => res.render('index', { shortenURL, inputURL }))
 })
 
 router.get('/:id', (req, res) => {
