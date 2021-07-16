@@ -40,7 +40,10 @@ router.get('/:id', (req, res) => {
   return URL.findOne({ urlCode })
     .lean()
     .then(url => {
-      if(!url) return res.redirect('/')
+      if(!url) {
+        req.flash('error_messages', '該短網址不存在')
+        return res.redirect('/')
+      }
       res.redirect(url.originURL)
     })
     .catch(err => console.error(err))
