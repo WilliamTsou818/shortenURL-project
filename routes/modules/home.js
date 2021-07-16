@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
   while(urlCodeArr.includes(urlCode)) {
     urlCode = randomUrlCode()
   }
-  shortenURL = `${req.headers.host}/${urlCode}`
+  shortenURL = `https://${req.headers.host}/${urlCode}`
 
   return URL.create({
     originURL: inputURL,
