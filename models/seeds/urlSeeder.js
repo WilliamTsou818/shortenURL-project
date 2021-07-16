@@ -4,7 +4,7 @@ const Url = require('../url')
 const data = [
   {
     originURL: 'https://www.google.com',
-    shortenURL: 'https://shielded-escarpment-56257.herokuapp.com/q483a',
+    shortenURL: 'http://localhost:3000/q483a',
     urlCode: 'q483a'
   },
   {

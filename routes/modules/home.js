@@ -24,7 +24,12 @@ router.post('/', async (req, res) => {
   while(urlCodeArr.includes(urlCode)) {
     urlCode = randomUrlCode()
   }
-  shortenURL = `https://${req.headers.host}/${urlCode}`
+  
+  if(req.headers.host === 'localhost:3000') {
+    shortenURL = `http://${req.headers.host}/${urlCode}`
+  } else {
+    shortenURL = `https://${req.headers.host}/${urlCode}`
+  }
 
   return URL.create({
     originURL: inputURL,
