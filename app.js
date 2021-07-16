@@ -5,7 +5,7 @@ const session = require('express-session')
 const flash = require('connect-flash')
 
 const app = express()
-const port = 3000
+const port = process.env.POST || 3000
 
 require('./config/mongoose')
 
@@ -30,5 +30,5 @@ app.use((req, res, next) => {
 app.use(routes)
 
 app.listen(port, () => {
-  console.log(`App running on http://localhost:3000`)
+  console.log(`Server is running on http://localhost:${post}`)
 })
