@@ -3,13 +3,13 @@ const Url = require('../url')
 
 const data = [
   {
-    originURL: 'https://forum.gamer.com.tw/C.php?bsn=197&snA=24652&tnum=2',
-    shortenURL: 'http://localhost:3000/q483a',
+    originURL: 'https://www.google.com',
+    shortenURL: 'https://shielded-escarpment-56257.herokuapp.com/q483a',
     urlCode: 'q483a'
   },
   {
     originURL: 'https://www.youtube.com/',
-    shortenURL: 'http://localhost:3000/p21ad',
+    shortenURL: 'https://shielded-escarpment-56257.herokuapp.com/p21ad',
     urlCode: 'p21ad'
   }
 ]
