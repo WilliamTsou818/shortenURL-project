@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', (req, res) => {
   const urlCode = req.params.id
-  if (urlCode === 'favicon.ico') return
+  if (urlCode === 'favicon.ico') return res.redirect('/')
   return URL.findOne({ urlCode })
     .lean()
     .then(url => {
